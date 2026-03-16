@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: myapp
+  namespace: dev
+
+---
+# creating generic Role viewer  
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: viewer
+  namespace: dev
+rules:
+  - verbs:
+      - get
+      - list
+    resources:
+      - services
+      - pods
+    apiGroups:
+      - ""
+
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customerresourcedefinations
+    verbs:
+      - list
+  - apiGroups:
+      - monitoring.coreos.com
+    resources:
+      - prometheuses
+      - prometheuses/status
+    verbs:
+      - get
+
+---
+# Creating Rolebing: myapp-viewer,by binding the Role:viewer to the service account: myapp
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: myapp-viewer
+  namespace: dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: viewer
+subjects:
+  - kind: ServiceAccount
+    name: myapp
+    namespace: dev
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: developer
+  namespace: default
+rules:
+  - apiGroups:
+      - ""
+    verbs:
+      - list
+      - create
+      - delete
+    resources:
+      - pods
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dev-user-binding
+  namespace: default
+roleRef:
+  name: developer
+  kind: Role
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: user
+    name: dev-user
+    namespace: default

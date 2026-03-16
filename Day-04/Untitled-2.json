@@ -1,0 +1,24 @@
+{
+    "Version": "2012-10-17",
+    "Id": "Allow all for vp endpoints",
+    "Statement":[
+        {
+            "Sid": "AllowAllfor vpc endpoints",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::amzn-s3-demo-bucket/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:sourceVpce": [
+                        "vpce-0e1234567890abcdef",
+                        "vpce-0e1234567890abcdef",
+                        "vpce-0e1234567890abcdef"
+                    ]   
+                }
+            }
+
+        }
+    ]
+
+}

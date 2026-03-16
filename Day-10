@@ -1,0 +1,16 @@
+import os
+folder_name = input("Provide the list of folders names with spaces in between:").split()
+
+for folder in folder_name:
+    try:
+        files = os.listdir(folder)
+    except FileNotFoundError:
+        print("Please Enter valid File name,looks like folder does not exist:" + folder)
+        continue
+    except PermissionError:
+        print("User Does not Access to folder:" + folder)
+        continue
+
+    print("########### Print files for the folder ########" + folder)
+    for file in files:
+        print(file)

@@ -1,0 +1,11 @@
+{
+    "Id": "Allow all for vpc-ep-1",
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowAll",
+            "Effect": "Allow",
+            
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  labels:
+    app: nginx-demo
+spec:
+  selector:
+    matchLabels:
+      app: nginx-demo
+  template:
+    metadata:
+      labels:
+        app: nginx-deme
+    spec:
+      containers:
+        - name: nginx-deme
+          image: nginx:latest
+          resources:
+            requests:
+              cpu: 4
+              memory: 512mi
+            limits:
+              cpu: 6
+              memory: 1024mi
