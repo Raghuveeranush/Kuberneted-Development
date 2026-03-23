@@ -1,0 +1,6 @@
+print('cat"')
+print('cat\'s')
+print("000e0e3")
+print(10//5)
+print("It\'s sunny day outside")
+print(" shr said, \"hi!\"")
